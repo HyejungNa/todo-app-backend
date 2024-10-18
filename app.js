@@ -30,6 +30,9 @@ mongoose
     console.log("DB connection fail", err);
   });
 
+// 포트 설정
+const PORT = process.env.PORT || 5000;
+
 app.listen(5000, () => {
   console.log("server on 5000");
 });
