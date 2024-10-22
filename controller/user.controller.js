@@ -12,7 +12,7 @@ userController.createUser = async (req, res) => {
     // 유저 중복 먼저 체크
     const user = await User.findOne({ email });
     if (user) {
-      throw new Error("이미 가입이 된 유저입니다");
+      throw new Error("This email already registered.");
     }
 
     // 비밀번호 암호화
@@ -25,7 +25,7 @@ userController.createUser = async (req, res) => {
     await newUser.save();
     res.status(200).json({ status: "success" });
   } catch (error) {
-    res.status(400).json({ status: "fail", error });
+    res.status(400).json({ status: "fail", message: error.message });
   }
 };
 
@@ -41,7 +41,7 @@ userController.loginWithEmail = async (req, res) => {
         return res.status(200).json({ status: "success", user, token });
       }
     }
-    throw new Error("아이디 또는 비밀번호가 일치하지 않습니다");
+    throw new Error("Email address or password dose not match.");
   } catch (error) {
     console.error(error); // 오류 로그
     res.status(400).json({ status: "fail", message: error.message });
